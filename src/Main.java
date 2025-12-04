@@ -31,8 +31,8 @@ public class Main {
 
              if(input.equals("1") || input.equals("2") || input.equals("3")){
                  int chooseNumber = Integer.parseInt(input);
-                 if (chooseNumber == 1) {
 
+                 if (chooseNumber == 1) {
                      System.out.print("Введите сумму дохода: ");
                      int inputDohod = scanner.nextInt();
                      scanner.nextLine();
@@ -48,50 +48,39 @@ public class Main {
 
 
                  } else if (chooseNumber == 3) {
-                     calculatingTheTax(resultEarnings,
-                             resultSpendings,
-                             taxSixPersent,
-                             taxFifteenPersent,
-                             reslutOfTax);
+                    double ysn6 = calculatingYSN6((double) resultEarnings);
+                    double ysn15 = calculatingYSN15((double) resultEarnings,  (double) resultSpendings);
+
+                    if(ysn6 > ysn15){
+                        double resultysn6 = ysn6 -  ysn15;
+                        System.out.println("Мы советуем вам УСН доходы - расходы\n" +
+                                "Ваш налог составит: " + ysn15 + "\n" +
+                                "Налог на другой системе:" + ysn6 + "\n" +
+                                "Экономия: " + resultysn6);
+                    } else if (ysn6 < ysn15) {
+                        double resultysn15 = ysn15 - ysn6;
+                        System.out.println("Мы советуем вам УСН доходы\n" +
+                                "Ваш налог составит: " + ysn6 + "\n" +
+                                "Налог на другой системе:" + ysn15 + "\n" +
+                                "Экономия: " + resultysn15);
+
+                    } else if (ysn6 == ysn15) {
+                        System.out.println("Вы можете выбрать любую систему УСН");
+                    }
                  }
              }
         }
     }
 
-    public static void calculatingTheTax(int resultEarnings,
-                                         int resultSpendings,
-                                         double tax6,
-                                         double tax15,
-                                         double reslutOfTax) {
-
-        tax6 = resultEarnings * 0.06; // вычисляем 6%-ый налог
-
-        tax15 = (resultEarnings - resultSpendings) * 0.15; // вычисляем 15%-ый налог
 
 
-        // Сравниваю
-        if (tax6 < tax15) {
 
-            reslutOfTax = tax15 - tax6;
-
-            System.out.println("выгоднее УСН 6%");
-            System.out.println("Ваш налог составит: " + tax6);
-            System.out.println("Налог на другой системе: " + tax15);
-            System.out.println("Экономия: " + reslutOfTax);
-        }
-        if (tax6 > tax15) {
-
-            reslutOfTax = tax6 - tax15;
-
-            System.out.println("выгоднее УСН 15%");
-            System.out.println("Ваш налог составит: " + tax15);
-            System.out.println("Налог на другой системе: " + tax6);
-            System.out.println("Экономия: " + reslutOfTax);
-        }
-        if (tax6 == tax15) {
-            System.out.println("Вы можете выбрать любую из систем налогообложения");
-        }
+    public static double calculatingYSN6(double earnigs){
+        return earnigs * 0.06;
     }
 
+    public static double calculatingYSN15(double earning, double spendings){
+        return (earning - spendings) * 0.15;
+    }
 
 }
