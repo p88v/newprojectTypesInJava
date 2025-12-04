@@ -71,8 +71,9 @@ public class Main {
         return earnigs * 0.06;
     }
 
-    public static double calculatingYSN15(double earning, double spendings) {
-        return (earning - spendings) * 0.15;
+    public static double calculatingYSN15(double earning, double spendings){
+        double tax = (earning - spendings) * 0.15;
+        return Math.max(tax, 0);
     }
 
 }
